@@ -33,15 +33,7 @@ public class SSEService {
             SseEmitter emitter = progressList.getEmitter();
             progressList.setPercentage(this.getProgress(progressList));
             try {
-                emitter.send(
-                        SseEmitter
-                                .event()
-                                .id(UUID.randomUUID().toString())
-                                .name("progress_bar_event")
-                                .data(progressList.getPercentage() + "%")
-                                .reconnectTime(300)
-                                .build()
-                );
+                emitter.send(progressList.getPercentage());
                 if (progressList.getPercentage() >= 100) {
                     this.completeEmitter(progressList);
                 }
